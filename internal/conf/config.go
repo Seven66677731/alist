@@ -95,6 +95,7 @@ type Config struct {
 	Cdn                   string      `json:"cdn" env:"CDN"`
 	JwtSecret             string      `json:"jwt_secret" env:"JWT_SECRET"`
 	TokenExpiresIn        int         `json:"token_expires_in" env:"TOKEN_EXPIRES_IN"`
+	StrmDir               string      `json:"strm_dir" env:"STRM_DIR"`
 	Database              Database    `json:"database" envPrefix:"DB_"`
 	Meilisearch           Meilisearch `json:"meilisearch" envPrefix:"MEILISEARCH_"`
 	Scheme                Scheme      `json:"scheme"`
@@ -130,6 +131,7 @@ func DefaultConfig() *Config {
 		},
 		JwtSecret:      random.String(16),
 		TokenExpiresIn: 48,
+		StrmDir:        "/media",
 		TempDir:        tempDir,
 		Database: Database{
 			Type:        "sqlite3",
