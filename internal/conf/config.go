@@ -89,6 +89,11 @@ type SFTP struct {
 	Listen string `json:"listen" env:"LISTEN"`
 }
 
+type Emby struct {
+	Host   string `json:"host" env:"EMBY_HOST"`
+	APIKey string `json:"api_key" env:"EMBY_API_KEY"`
+}
+
 type Config struct {
 	Force                 bool        `json:"force" env:"FORCE"`
 	SiteURL               string      `json:"site_url" env:"SITE_URL"`
@@ -96,6 +101,7 @@ type Config struct {
 	JwtSecret             string      `json:"jwt_secret" env:"JWT_SECRET"`
 	TokenExpiresIn        int         `json:"token_expires_in" env:"TOKEN_EXPIRES_IN"`
 	StrmDir               string      `json:"strm_dir" env:"STRM_DIR"`
+	Emby                  Emby        `json:"emby" envPrefix:"EMBY_"`
 	Database              Database    `json:"database" envPrefix:"DB_"`
 	Meilisearch           Meilisearch `json:"meilisearch" envPrefix:"MEILISEARCH_"`
 	Scheme                Scheme      `json:"scheme"`
@@ -132,7 +138,10 @@ func DefaultConfig() *Config {
 		JwtSecret:      random.String(16),
 		TokenExpiresIn: 48,
 		StrmDir:        "/media",
-		TempDir:        tempDir,
+		Emby: Emby{
+			Host: "http://127.0.0.1:8096",
+		},
+		TempDir: tempDir,
 		Database: Database{
 			Type:        "sqlite3",
 			Port:        0,

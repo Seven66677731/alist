@@ -50,9 +50,8 @@ func GenerateStrm(c *gin.Context) {
 	}
 
 	resMap := strm.WriteFiles(filePaths)
-
-	deleteFiles := strm.DeleteExtraFiles(reqPath, filePaths)
-	resMap["deleteFiles"] = deleteFiles
+	resMap["deleteFiles"] = strm.DeleteExtraFiles(reqPath, filePaths)
+	resMap["freshLibrary"] = strm.FreshLibrary(reqPath)
 	common.SuccessResp(c, resMap)
 }
 
